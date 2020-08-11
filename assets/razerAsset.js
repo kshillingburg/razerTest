@@ -2,7 +2,8 @@
 verifying that it is filtering out the product page 
 to only have the specific product with its specifications */
 
-module.exports = (pageObject, TBD) => {
+module.exports = (pageObject, objectName) => {
     pageObject
-    
+        .clickFilter(objectName)
+        
 }

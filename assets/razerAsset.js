@@ -2,8 +2,12 @@
 verifying that it is filtering out the product page 
 to only have the specific product with its specifications */
 
-module.exports = (pageObject, objectName) => {
+module.exports = (pageObject, arrayName, drop) => {
     pageObject
-        .clickFilter(objectName)
-        
+    arrayName.forEach(item => {
+        pageObject
+            .clickFilter(drop, item)
+            .click('@closeBtn')
+            .pause(1000) 
+    })
 }

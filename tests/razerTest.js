@@ -1,41 +1,87 @@
 var razer ={}
-//var required = require('../assets/razerAsset') 
-var nameArray = [
+var filterAssets = require('../assets/razerAsset') 
+var dropArray = [
+    '@dropScreenSize',
+    '@dropScreenType',
+    '@dropRefresh',
+    '@dropProcessor',
+    '@dropGraphics',
+    '@dropStorage',
+    '@dropMemory',
+    '@dropColor',
+]
+var arraySize = [
     //Screen Size in inches
-    "15","17","13",   
+    "15 inch","17 inch","13 inch" 
+]
+var arrayType = [   
     //Screen Type
-    "Full HD","OLED 4K","OLED 4K Touch",
+    /*first place in the array is a skip that occurs 
+    during the popup interruption. Will cause error at
+    the end. Please ignore*/
+    '',"Full HD","4K Touch","OLED 4K","OLED 4K Touch" 
+]
+var arrayRefresh = [
     //Refresh Rate
-    "60Hz","144Hz","300Hz","240Hz",
+    "60Hz","300Hz","144Hz","120Hz","240Hz"
+]
+//Processor filter selectors refused to comply.
+var arrayProcessor = [
     //Processor
-    "10th","9th", //10 and 11
+    "10th Gen Intel® Core™ i7","9th Gen Intel® Core™ i7"
+]
+var arrayGraphics = [
     //Graphics
-    "Geforce RTX 2070","Geforce RTX 2080 Super","Geforce GTX 1650 Ti","Geforce GTX 1660 Ti",
-    "Geforce RTX 2060","Geforce RTX 2070 Super","Geforce RTX 2080","Quadro RTX 5000",
+    "GeForce RTX 2070 Max-Q","GeForce RTX 2080 Super Max-Q","GeForce GTX 1650 Ti Max-Q","GeForce GTX 1660 Ti",
+    "GeForce RTX 2060","GeForce RTX 2070 Super Max-Q","GeForce RTX 2080 Max-Q","Quadro RTX 5000"
+]
+var arrayStorage = [
     //Storage
-    "512","1TB","256",
+    "512 SSD","1TB SSD","256 SSD"
+]
+var arrayMemory = [
     //Memory
-    "16GB","32GB",
+    "16GB" ,"32GB"
+]
+var arrayColor = [
     //Color
-    "Black","Mercury" //25 and 26
+    "Black ",
+    "Mercury"
 ]
 module.exports = {
     beforeEach: browser => {
         razer = browser.page.razerObjects()
         razer.navigate()
             .waitForElementVisible('@titleElement')
+
     },
     after: browser => {
         razer.end()
     },
     'Test Each Individual Filter': browser => {
         razer
-
+            .loadProductPage()
+            var count = 0
+            filterAssets(razer, arraySize, dropArray[count])
+            count++
+            filterAssets(razer, arrayType, dropArray[count])
+            count++
+            filterAssets(razer, arrayRefresh, dropArray[count])
+            count++
+            filterAssets(razer, arrayProcessor, dropArray[count])
+            count++
+            filterAssets(razer, arrayGraphics, dropArray[count])
+            count++
+            filterAssets(razer, arrayStorage, dropArray[count])
+            count++
+            filterAssets(razer, arrayMemory, dropArray[count])
+            count++
+            filterAssets(razer, arrayColor, dropArray[count])
     },
-    'Test Multiple Filters of Different Sections': browser => {
-        razer
+    // 'Test Multiple Filters of Different Sections': browser => {
+    //     razer
 
-    },
+    // },
 
 
 }

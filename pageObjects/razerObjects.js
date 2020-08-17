@@ -7,12 +7,15 @@ var razerCommands ={
         this.click('@shopLaptops')
         return this
     },
-    //Custom command that adds a filter
-    clickFilter: function(dropFilterName,filterName) {
-        var self = this
-        this.click(dropFilterName)
-        this.pause(500)
+    clickDrop: function(dropFilterName,) {
         this.api.useXpath()
+        this.click(`//span[contains(text(),"${dropFilterName}")]`)
+        this.pause(500)  
+        return this  
+    },
+    //Custom command that adds a filter
+    clickFilter: function(filterName) {
+        var self = this
         this.click(`//span[contains(text(),"${filterName}")]`) 
         this.api.useCss()    
         this.pause(3000)
@@ -40,18 +43,6 @@ var razerCommands ={
         })
         return this
  
-    },
-    //Custom command to check products match filter
-    filterMatch: function(arrayName, filterName) {
-        this.arrayName.forEach(product => {
-            this.assert.containsText(product, filterName)
-        }) 
-    },
-    //Custom command to verify that filters were cleared.
-    filtersCleared: function() {
-        this.click('@clearBtn')
-        this.assert.containsText('@productNumber', '17 products')
-        return this
     }
 }
 
@@ -74,53 +65,10 @@ module.exports = {
             locateStrategy: 'xpath'
         },
         shopLaptops: '[href="/shop/pc/gaming-laptops"]',
-        clearBtn: {
-            selector: '//a[contains(text(),"Clear All")]',
-            locateStrategy: 'xpath'
-        },
         closeBtn: {
             selector: '//mat-icon[contains(text(),"close")]',
             locateStrategy: 'xpath'
         },
-        productNumber: {
-            selector: '//div[3]/p',
-            locateStrategy: 'xpath'
-        },
-        popUpClose: '.icon-close',
-        //Filter drop down titles
-        dropScreenSize: {
-            selector: '//span[contains(text(), "Screen Size")]',
-            locateStrategy: 'xpath'
-        },
-        dropScreenType: {
-            selector: '//span[contains(text(), "Screen Type")]',
-            locateStrategy: 'xpath'
-        },
-        dropRefresh: {
-            selector: '//span[contains(text(), "Refresh Rate")]',
-            locateStrategy: 'xpath'
-        },
-        dropProcessor: {
-            selector: '//span[contains(text(), "Processor")]',
-            locateStrategy: 'xpath'
-        },
-        dropGraphics: {
-            selector: '//span[contains(text(), "Graphics")]',
-            locateStrategy: 'xpath'
-        },
-        dropStorage: {
-            selector: '//span[contains(text(), "Storage")]',
-            locateStrategy: 'xpath'
-        },
-        dropMemory: {
-            selector: '//span[contains(text(), "Memory")]',
-            locateStrategy: 'xpath'
-        },
-        dropColor: {
-            selector: '//span[contains(text(), "Color")]',
-            locateStrategy: 'xpath'
-        },
-        
-
+        popUpClose: '.icon-close',     
     }
 }
